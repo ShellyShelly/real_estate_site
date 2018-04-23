@@ -1,0 +1,36 @@
+{% extends 'shop/base.html' %}
+
+{% load staticfiles %}
+{% load static %}
+
+{% block title %}
+  Об'єкт - "{{ object }}"
+{% endblock %}
+
+
+{% block content %}
+    <div id="sidebar" class="col-sm-3">
+        <h3>{{ object.title }}</h3><br>
+        Фотографії<br>
+        {% if image_models %}
+            {% for image_model in image_models %}
+                <div class="imgBlock">
+                        <img src="{{ image_model.image.url }}" height="200" width="200" alt="">
+                </div>
+            {% endfor %}
+        {% endif %}
+        Дата публікації: {{ object.pub_date }} <br>
+        ID об'єкту: {{ object.id }} <br>
+        Вартість: {{ object.price }} {{ object.get_currency_type_display }} <br>
+        Площа: {{ object.area }} {{ object.get_area_unit_type_display }} <br>
+        Тип оголошення: {{ object.get_offer_type_display }} <br>
+        Тип об'єкту: {{ object.get_object_type_display }}<br>
+        Область: {{ object.region }}<br>
+        Місто: {{ object.city }}<br>
+        Вулиця: {{ object.address }}<br>
+        Додаткова інформація: {{ object.about }}<br>
+        <br>Карта:<br>
+        {{form.media}}<br>
+        {{form.as_p}}<br>
+    </div>
+{% endblock %}

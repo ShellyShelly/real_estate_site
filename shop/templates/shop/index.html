@@ -1,0 +1,76 @@
+{% extends 'shop/base.html' %}
+
+{% load staticfiles %}
+{% load static %}
+
+{% block title %}
+  Головна
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="filterBlock">
+    <!--
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Search</button>
+    </form>{% csrf_token %}
+    -->
+
+    <form action="" method="get">
+        {{ filter.form.as_p }}
+        <input type="submit" />
+    </form>
+
+</div>
+
+<div class="centralBook">
+    <ul>
+        {% for product in products %}
+            <div class="productBlock">
+                {% if image_models %}
+                      {% for image_model in image_models %}
+                          <div class="imgBlock">
+                              <img src="{{ image_model.image.url }}" height="200" width="200" alt="">
+                          </div>
+                      {% endfor %}
+                {% endif %}
+                <a href={{ product.get_absolute_url }}>
+                    <h3>{{ product.title }}</h3>
+                </a>
+                <div class="offer_type">
+                    <p>{{ product.get_offer_type_display }}</p>
+                </div>
+                <div class="price">
+                    <p>{{ product.area }} {{ product.get_area_unit_type_display }}</p>
+                </div>
+                <div class="price">
+                    <p>{{ product.price }} {{ product.currency_type }}</p>
+                </div>
+            </div><br>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+    {% if products.has_previous %}
+    <a href="?page={{ products.previous_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ products.number }} of {{ products.paginator.num_pages }}.
+    </span>
+
+    {% if products.has_next %}
+    <a href="?page={{ products.next_page_number }}{% for key,value in request.GET.items %}{% ifnotequal key 'page' %}&{{ key }}={{ value }}{% endifnotequal %}{% endfor %}">next</a>
+    {% endif %}
+  </span>
+</div>
+<br>
+
+
+{% endblock %}

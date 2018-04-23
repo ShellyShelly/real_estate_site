@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+
+
+<html lang="ua">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="https://fonts.googleapis.com/css?family=Asap:400,700|Roboto:300,400,500,900" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'shop/css/media.css' %}">
+        <link rel="stylesheet" href="{% static 'shop/css/main.css' %}">
+
+        <!--[if lt IE 9]>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <header>
+        	<div class="topHead">
+        		<div class="logo">
+                    <a href='/shop'><p>SHOP</p></a>
+        		</div>
+        	</div>
+            <div class="topHead">
+                <div class="contactInfo">
+                    <ul>
+                        Контакти
+                        {% for contact in contacts %}
+                            <div class="contact">
+                                <p>{{ contact.mobile_phone_number }} - {% if contact.is_online == True %}ONLINE{% else %}OFFLINE{% endif %}</p>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </header>
+        {% block content %} {% endblock %}
+    </body>
+    <footer>
+            <div class="footerBlock">
+                <p>created by 2018</p>
+            </div>
+    </footer>
+</html>
